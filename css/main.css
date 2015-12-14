@@ -4,11 +4,21 @@
    Author's custom styles
    ========================================================================== */
 body {
-
+  width: 1920;
+  height: 1280;
 }
 
 div,img,button {
   position: absolute;
 }
 
+.annotations button {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
 
+  background-color: rgba(255,255,255,0.7);
+}
