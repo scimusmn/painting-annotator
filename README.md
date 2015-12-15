@@ -1,2 +1,2 @@
 # painting-annotator
-Template project for creating interest-points on a 2D image that link to relevant text and media.
+Project template for displaying interest-points over a 2D image that link and display relevant content.
