@@ -7,7 +7,10 @@ $(document).ready(function() {
   // Create annotations manifest
   var annotations = [];
 
+  var videoPlayer = {}
+
   setupFullscreenVideo();
+
   setupScreenSaver();
 
   $('.annotations button').each(function() {
@@ -69,28 +72,21 @@ $(document).ready(function() {
     // Create video tag
     var options = { controls:false, autoplay: true, loop: false, preload: 'auto' };
 
-    // Initialize player
-    videoPlayer = videojs('fullscreen_video', options, function() {
+    videoPlayer = $('video');
 
-      this.on('playing', function() {
+    videoPlayer.on('playing', function() {
 
-        console.log('Video playing.');
+      console.log('Video is playing');
 
-        $('.content').show();
+      $('.content').show();
 
-      });
+    });
 
-      this.on('waiting', function() {
+    videoPlayer.on('ended', function() {
 
-      });
+      console.log('Video has ended!');
 
-      this.on('ended', function() {
-
-        console.log('Video ended.');
-
-        hideFullscreenVideo();
-
-      });
+      hideFullscreenVideo();
 
     });
 
@@ -105,14 +101,15 @@ $(document).ready(function() {
 
   function showFullscreenVideo(vidSrc) {
 
-    videoPlayer.src([{ type: 'video/mp4', src: vidSrc }]);
+    videoPlayer.attr('src', vidSrc);
+    videoPlayer.load();
 
   }
 
   function hideFullscreenVideo() {
 
     $('.content').fadeOut('fast', function() {
-      videoPlayer.pause();
+      videoPlayer.get(0).pause();
       $('.content').hide();
     });
 
@@ -120,7 +117,7 @@ $(document).ready(function() {
 
   function setupScreenSaver() {
 
-    var screensaver = new Screensaver(5 * 60, 'videos/Screensaver.mp4', function() {
+    var screensaver = new Screensaver(.5 * 60, 'videos/Screensaver.mp4', function() {
 
       console.log('onSleepCallback');
 

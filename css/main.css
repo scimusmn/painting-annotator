@@ -47,28 +47,16 @@ img {
   pointer-events:none;
 }
 
+.content{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+}
+
 #fullscreen_video,
 #screensaver_video {
   width: 1920px;
   height: 1280px;
-}
-
-#fullscreen_video .vjs-control-bar {
-  display:none !important;
-  visibility: hidden !important;
-  width: 1px;
-  height: 1px !important;
-  overflow: hidden !important;
-}
-
-.vjs-default-skin .vjs-progress-control,
-.vjs-default-skin .vjs-time-controls,
-.vjs-default-skin .vjs-time-divider,
-.vjs-default-skin .vjs-captions-button,
-.vjs-default-skin .vjs-mute-control,
-.vjs-default-skin .vjs-volume-control,
-.vjs-default-skin .vjs-fullscreen-control {
-    display: none !important;
 }
 
 .home-btn{
