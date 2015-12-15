@@ -4,16 +4,15 @@
    Currently using Voronoi process from library: https://github.com/gorhill/Javascript-Voronoi
    ===================================================================================== */
 
-var VoronoiLayer = function(sites, svgElement, cellSelectionCallback) {
+var VoronoiLayer = function(sites, svgElement, cellSelectionCallback, _colorize) {
+
+  var colorize = _colorize || false;
 
   // Array of center-points with ids, like so:[ {"id":"Site_A","x":160,"y":564}, {"id":"Site_B","x":442,"y":336}, {...}, {...} ];
   this.sites = sites;
 
   // Empty <svg> element to populate
-  console.log(svgElement);
   this.svgElement = svgElement;
-
-  console.log($(this.svgElement).attr('width'));
 
   // Called when a cell is clicked.
   this.cellSelectionCallback = cellSelectionCallback || function() {};
@@ -43,8 +42,6 @@ var VoronoiLayer = function(sites, svgElement, cellSelectionCallback) {
     var bottom = $(this.svgElement).attr('height').replace(/[^-\d\.]/g, '');
     this.bbox = {xl:0, xr:right, yt:0, yb:bottom};
 
-    console.log(this.bbox);
-
     // Generate Voronoi diagram
     this.diagram = this.voronoi.compute(this.sites, this.bbox);
 
@@ -60,8 +57,6 @@ var VoronoiLayer = function(sites, svgElement, cellSelectionCallback) {
     var drawPoint;
     var pointsStr;
     var newShape;
-
-    console.log(cells);
 
     // Draw Cells
     while (index--) {
@@ -79,10 +74,14 @@ var VoronoiLayer = function(sites, svgElement, cellSelectionCallback) {
 
       };
 
-      var fillColor = 'rgba(0,33,255,0.3)'; // Change from 'none' to hex for debugging.
+      var fillColor = 'none';
+
+      if (colorize === true) {
+        fillColor = 'rgba(' + Math.round(Math.random() * 255) + ',' + Math.round(Math.random() * 255) + ', 255, 0.35)';
+      }
 
       // Add Polygon representing cell
-      newShape = '<polygon id="' + cell.site.id + '" points="' + pointsStr + '" pointer-events="visible" stroke="red" fill="' + fillColor + '"/>';
+      newShape = '<polygon id="' + cell.site.id + '" points="' + pointsStr + '" pointer-events="visible" fill="' + fillColor + '"/>';
       $(this.svgElement).append($(newShape));
 
       // Add Circle representing site point

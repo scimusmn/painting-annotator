@@ -4,21 +4,86 @@
    Author's custom styles
    ========================================================================== */
 body {
+
   width: 1920;
   height: 1280;
+  overflow: hidden;
+
+  /* disable text highlighting */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* hide cursor */
+  /*cursor: none !important;*/
+
 }
 
-div,img,button {
+div,img,button,video {
   position: absolute;
 }
 
+/* Prevent image ghost-dragging */
+img {
+  pointer-events:none;
+}
+
 .annotations button {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
+  width: 40px;
+  height: 40px;
+  padding: 8px 11px;
   font-size: 18px;
   line-height: 1.33;
-  border-radius: 25px;
+  border-radius: 20px;
 
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255,255,255,0.95);
+  -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.3);
+
+  pointer-events:none;
+}
+
+#fullscreen_video,
+#screensaver_video {
+  width: 1920px;
+  height: 1280px;
+}
+
+#fullscreen_video .vjs-control-bar {
+  display:none !important;
+  visibility: hidden !important;
+  width: 1px;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+.vjs-default-skin .vjs-progress-control,
+.vjs-default-skin .vjs-time-controls,
+.vjs-default-skin .vjs-time-divider,
+.vjs-default-skin .vjs-captions-button,
+.vjs-default-skin .vjs-mute-control,
+.vjs-default-skin .vjs-volume-control,
+.vjs-default-skin .vjs-fullscreen-control {
+    display: none !important;
+}
+
+.home-btn{
+  width: 83px;
+  height: 84px;
+  padding: 35px;
+
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+
+  background: url(../img/homeIcon.png) no-repeat center;
+  background-color: rgba(255,0,0,0.5);
+}
+.home-btn:active{
+  background: url(../img/homeIconActive.png) no-repeat center;
+  background-color: rgba(255,0,0,0.8);
 }
