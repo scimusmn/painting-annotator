@@ -24,16 +24,16 @@ $(document).ready(function() {
 
     annotations.push(a);
 
-    // Position & style button
-    $(this).css('left', a.x);
-    $(this).css('top', a.y);
+    // Position & style button (offset for button size)
+    $(this).css('left', a.x - 20);
+    $(this).css('top', a.y - 20);
     $(this).addClass('btn');
     $(this).append('<i class="glyphicon glyphicon-plus"></i>');
 
   });
 
   // Create hit regions by building Vernoi diagram
-  var svgElement = '<svg id="veronoi_ui" width="1920" height="1280" ></svg>';
+  var svgElement = '<svg id="veronoi_ui" width="1920" height="1080" ></svg>';
   $('.annotations').prepend(svgElement);
 
   // Allow time for size recalc...
@@ -117,12 +117,17 @@ $(document).ready(function() {
 
   function setupScreenSaver() {
 
-    var screensaver = new Screensaver(.5 * 60, 'videos/Screensaver.mp4', function() {
+    var screensaver = new Screensaver(5 * 60, 'videos/Screensaver.mp4', function() {
 
       console.log('onSleepCallback');
 
     });
 
   }
+
+  // TEMP - Tool for logging annotation points
+  $('body').click(function(e) {
+    console.log(e.pageX + ' , ' + e.pageY);
+  });
 
 });
