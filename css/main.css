@@ -79,9 +79,9 @@ img {
   left: 0px;
 
   background: url(../img/homeIcon.png) no-repeat center;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(20,20,20,0.5);
 }
 .home-btn:active{
   background: url(../img/homeIconActive.png) no-repeat center;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(20,20,20,0.5);
 }
