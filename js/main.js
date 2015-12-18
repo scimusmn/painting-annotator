@@ -8,20 +8,25 @@ $(document).ready(function() {
   var annotations = [];
   var videoPlayer = {};
 
+  var appWidth = $('body').css('width');
+  var appHeight = $('body').css('height');
+
   function init() {
 
     setupFullscreenVideo();
     setupScreenSaver();
 
     var paintingImg = $('.painting img').first();
+
     $('.annotations button').each(function() {
 
+      var mediaPath = $(this).attr('media-path');
       var a = { id: $(this).attr('id'),
                 btn: this,
-                x: parseInt($(this).attr('data-x'), 10),
-                y: parseInt($(this).attr('data-y'), 10),
-                type: $(this).attr('media-type'),
-                path: $(this).attr('media-path'),
+                x: parseInt($(this).attr('annotation-x'), 10),
+                y: parseInt($(this).attr('annotation-y'), 10),
+                type: getMediaType(mediaPath),
+                path: mediaPath,
       };
 
       annotations.push(a);
@@ -32,48 +37,62 @@ $(document).ready(function() {
       $(this).addClass('btn');
       $(this).append('<i class="glyphicon glyphicon-plus"></i>');
 
-      // Associate clipping w annotation
-      var cutoutWidth = 100 + Math.random() * 200;
-      var cutoutHeight = 100 + Math.random() * 200;
-      var cutRect = {x:-(cutoutWidth / 2), y: -(cutoutHeight / 2), w: cutoutWidth, h: cutoutHeight};
-
-      if (a.id === 'b_lincoln') {
-        cutRect = {x:-90, y: 10, w: 150, h: 440};
-      } else if (a.id === 'k_churches') {
-        cutRect = {x:-75, y: -0, w: 150, h: 125};
+      var cutout = $(this).attr('cutout');
+      if (cutout === undefined) {
+        cutout = {x:-70, y: -70, w: 140, h: 140};
+      } else {
+        cutout = getProperJSON(cutout);
       }
 
-      a.cutRect = cutRect;
+      a.cutRect = cutout;
       a.cutout = getCutoutFromImage(a.id, paintingImg, a.x + a.cutRect.x, a.y + a.cutRect.y, a.cutRect.w, a.cutRect.h);
 
     });
 
     // Create hit regions by building Vernoi diagram
-    var svgElement = '<svg id="veronoi_ui" width="1920" height="1080"></svg>';
+    console.log(appWidth,appHeight);
+    var svgElement = '<svg id="veronoi_ui" width="'+appWidth+'" height="'+appHeight+'"></svg>';
     $('.annotations').prepend(svgElement);
 
     // Allow time for size recalc...
     setTimeout(function() {
-      var vornoi = new VoronoiLayer(annotations, $('#veronoi_ui'), onAnnotationSelected, false);
-    }, 250);
+      var vornoi = new VoronoiLayer(annotations, $('#veronoi_ui'), onAnnotationSelected, onAnnotationActive, false);
+    }, 200);
 
     cutoutsGoHome();
 
   }
 
-  var onAnnotationSelected = function(annId, annBtn) {
+  var onAnnotationActive = function(annId, annBtn) {
 
-    console.log('annotationSelected(): ' + annId);
-
-    // TODO - Set up media and transition to overlay screen
     for (var i = 0; i < annotations.length; i++) {
 
       var a = annotations[i];
 
       if (annId === a.id) {
 
-        //Block mouse/touch interaction
+        $(a.btn).addClass('active');
+
+        break;
+      }
+
+    }
+
+  };
+
+  var onAnnotationSelected = function(annId, annBtn) {
+
+    console.log('annotationSelected(): ' + annId);
+
+    for (var i = 0; i < annotations.length; i++) {
+
+      var a = annotations[i];
+
+      if (annId === a.id) {
+
+        // Block mouse/touch interaction
         $('.overlay').css('pointer-events', 'auto');
+        $(a.btn).removeClass('active');
 
         // Transition
 
@@ -258,6 +277,29 @@ $(document).ready(function() {
 
     });
 
+  }
+
+  function getMediaType(mediaPath) {
+
+    var ext = mediaPath.split('.').pop();
+    var type = '';
+
+    if (ext === 'mp4' || ext === 'mov') {
+      type = ANNOTATION_TYPE_VIDEO;
+    } else if (ext === 'mp3' || ext === 'ogg') {
+      type = ANNOTATION_TYPE_AUDIO;
+    } else if (ext === 'txt' || ext === 'json' || ext === 'xml' || ext === 'html') {
+      type = ANNOTATION_TYPE_TEXT;
+    } else {
+      console.log('Unrecognized media type for file:', mediaPath);
+    }
+
+    return type;
+  }
+
+  function getProperJSON(improperJSON) {
+    var properJSON = improperJSON.replace(/([a-z][^:]*)(?=\s*:)/g, '"$1"');
+    return JSON.parse(properJSON);
   }
 
   // TEMP - Tool for logging annotation points

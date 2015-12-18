@@ -5,8 +5,8 @@
    ========================================================================== */
 body {
 
-  width: 1920;
-  height: 1080;
+  width: 1920px;
+  height: 1080px;
   overflow: hidden;
 
   /* disable text highlighting */
@@ -52,14 +52,13 @@ img {
 
 }
 
-.annotations polygon:active button {
+.annotations button.active {
 
-  background-color: rgba(0,0,0,0.4);
-  color: white;
+  color: #AAA;
 
-  -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.0);
-  -moz-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.0);
-  box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.0);
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
+  box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
 
 }
 
@@ -68,7 +67,6 @@ img {
   -moz-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.5);
   box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.5);
 }
-
 
 .painting, .content{
   width: 100%;

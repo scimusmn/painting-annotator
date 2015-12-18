@@ -14,7 +14,7 @@ var VoronoiLayer = function(sites, svgElement, cellSelectionCallback, _colorize)
   // Empty <svg> element to populate
   this.svgElement = svgElement;
 
-  // Called when a cell is clicked.
+  // Called when a cell is clicked or active.
   this.cellSelectionCallback = cellSelectionCallback || function() {};
 
   this.init = function() {
