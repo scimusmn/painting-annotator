@@ -85,8 +85,8 @@ var VoronoiLayer = function(sites, svgElement, cellSelectionCallback, _colorize)
       $(this.svgElement).append($(newShape));
 
       // Add Circle representing site point
-      newShape = '<circle cx="' + (cell.site.x - 2) + '" cy="' + (cell.site.y - 2) + '" r="2" pointer-events="none" fill="' + fillColor + '"/>';
-      $(this.svgElement).append($(newShape));
+      // newShape = '<circle cx="' + (cell.site.x - 2) + '" cy="' + (cell.site.y - 2) + '" r="2" pointer-events="none" fill="' + fillColor + '"/>';
+      // $(this.svgElement).append($(newShape));
     }
 
     // Refresh svg html

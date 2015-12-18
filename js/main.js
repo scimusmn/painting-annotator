@@ -6,58 +6,60 @@ $(document).ready(function() {
 
   // Create annotations manifest
   var annotations = [];
-
   var videoPlayer = {};
 
-  setupFullscreenVideo();
+  function init() {
 
-  setupScreenSaver();
+    setupFullscreenVideo();
+    setupScreenSaver();
 
-  cutoutsGoHome();
+    var paintingImg = $('.painting img').first();
+    $('.annotations button').each(function() {
 
-  var paintingImg = $('.painting img').first();
-  $('.annotations button').each(function() {
+      var a = { id: $(this).attr('id'),
+                btn: this,
+                x: parseInt($(this).attr('data-x'), 10),
+                y: parseInt($(this).attr('data-y'), 10),
+                type: $(this).attr('media-type'),
+                path: $(this).attr('media-path'),
+      };
 
-    var a = { id: $(this).attr('id'),
-              btn: this,
-              x: parseInt($(this).attr('data-x'), 10),
-              y: parseInt($(this).attr('data-y'), 10),
-              type: $(this).attr('media-type'),
-              path: $(this).attr('media-path'),
-    };
+      annotations.push(a);
 
-    annotations.push(a);
+      // Position & style button (offset for button size)
+      $(this).css('left', a.x - 20);
+      $(this).css('top', a.y - 20);
+      $(this).addClass('btn');
+      $(this).append('<i class="glyphicon glyphicon-plus"></i>');
 
-    // Position & style button (offset for button size)
-    $(this).css('left', a.x - 20);
-    $(this).css('top', a.y - 20);
-    $(this).addClass('btn');
-    $(this).append('<i class="glyphicon glyphicon-plus"></i>');
+      // Associate clipping w annotation
+      var cutoutWidth = 100 + Math.random() * 200;
+      var cutoutHeight = 100 + Math.random() * 200;
+      var cutRect = {x:-(cutoutWidth / 2), y: -(cutoutHeight / 2), w: cutoutWidth, h: cutoutHeight};
 
-    // Associate clipping w annotation
-    var cutoutWidth = 100 + Math.random() * 200;
-    var cutoutHeight = 100 + Math.random() * 200;
-    var cutRect = {x:-(cutoutWidth / 2), y: -(cutoutHeight / 2), w: cutoutWidth, h: cutoutHeight};
+      if (a.id === 'b_lincoln') {
+        cutRect = {x:-90, y: 10, w: 150, h: 440};
+      } else if (a.id === 'k_churches') {
+        cutRect = {x:-75, y: -0, w: 150, h: 125};
+      }
 
-    if (a.id === 'b_lincoln') {
-      cutRect = {x:-90, y: 10, w: 150, h: 440};
-    } else if (a.id === 'k_churches') {
-      cutRect = {x:-75, y: -0, w: 150, h: 125};
-    }
+      a.cutRect = cutRect;
+      a.cutout = getCutoutFromImage(a.id, paintingImg, a.x + a.cutRect.x, a.y + a.cutRect.y, a.cutRect.w, a.cutRect.h);
 
-    a.cutRect = cutRect;
-    a.cutout = getCutoutFromImage(a.id, paintingImg, a.x + a.cutRect.x, a.y + a.cutRect.y, a.cutRect.w, a.cutRect.h);
+    });
 
-  });
+    // Create hit regions by building Vernoi diagram
+    var svgElement = '<svg id="veronoi_ui" width="1920" height="1080"></svg>';
+    $('.annotations').prepend(svgElement);
 
-  // Create hit regions by building Vernoi diagram
-  var svgElement = '<svg id="veronoi_ui" width="1920" height="1080"></svg>';
-  $('.annotations').prepend(svgElement);
+    // Allow time for size recalc...
+    setTimeout(function() {
+      var vornoi = new VoronoiLayer(annotations, $('#veronoi_ui'), onAnnotationSelected, false);
+    }, 250);
 
-  // Allow time for size recalc...
-  setTimeout(function() {
-    var vornoi = new VoronoiLayer(annotations, $('#veronoi_ui'), onAnnotationSelected, false);
-  }, 250);
+    cutoutsGoHome();
+
+  }
 
   var onAnnotationSelected = function(annId, annBtn) {
 
@@ -70,12 +72,17 @@ $(document).ready(function() {
 
       if (annId === a.id) {
 
+        //Block mouse/touch interaction
+        $('.overlay').css('pointer-events', 'auto');
+
         // Transition
+
         TweenMax.to($(a.btn), 0.15, {
           opacity:0,
         });
 
         setTimeout(function() {
+
           TweenMax.to($('.overlay'), 1, {
               opacity:1,
               ease:Power2.easeOut,
@@ -228,6 +235,9 @@ $(document).ready(function() {
             opacity:1,
           });
           $(a.cutout).hide();
+
+          // Unblock mouse/touch interaction
+          $('.overlay').css('pointer-events', 'none');
         },
       });
 
@@ -254,5 +264,7 @@ $(document).ready(function() {
   $('body').click(function(e) {
     console.log(e.pageX + ' , ' + e.pageY);
   });
+
+  init();
 
 });
