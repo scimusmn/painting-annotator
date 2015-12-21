@@ -271,7 +271,7 @@ $(document).ready(function() {
 
   function setupScreenSaver() {
 
-    var screensaver = new Screensaver(5 * 60, 'videos/Screensaver.mp4', function() {
+    var screensaver = new Screensaver(5 * 60, 'videos/screensaver.mp4', function() {
 
       console.log('onSleepCallback');
 
