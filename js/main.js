@@ -116,12 +116,12 @@ $(document).ready(function() {
             padding:0,
           });
 
-          TweenMax.to($(a.cutout), 1.75, {
+          TweenMax.to($(a.cutout), 1.5, {
             delay: 0.5,
             left:20,
             top:20,
             padding:10,
-            backgroundColor:'rgba(0,0,0,0.5)',
+            backgroundColor:'rgba(0,0,0,0.75)',
             boxShadow:'0px 3px 8px 2px rgba(0, 0, 0, 0.3)',
             ease:Power2.easeInOut,
             onComplete:showAnnotationContent,
@@ -144,7 +144,7 @@ $(document).ready(function() {
         showFullscreenVideo(ann.path);
         break;
       default:
-        console.log('Whoops! Presentation for annotation type:', ann.type, ' has not been built out yet!');
+        console.log('Annotation type:', ann.type, ' has not been built yet.');
         break;
     }
   }
