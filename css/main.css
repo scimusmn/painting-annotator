@@ -94,8 +94,6 @@ img {
 }
 .home-btn:active{
 
-  margin-bottom: -1px;
-
   background: url(../img/homeIconActive.png) no-repeat center;
   background-color: rgba(0,0,0,0.75);
 }
