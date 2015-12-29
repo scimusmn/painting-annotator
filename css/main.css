@@ -18,7 +18,7 @@ body {
   user-select: none;
 
   /* hide cursor */
-  /*cursor: none !important;*/
+  cursor: none !important;
 
   color: #FFF;
 
@@ -41,7 +41,7 @@ img {
   line-height: 1.33;
   border-radius: 20px;
 
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.85);
   color: white;
 
   -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.3);
@@ -60,12 +60,6 @@ img {
   -moz-box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
   box-shadow: 0px 0px 15px 1px rgba(0,0,0,0.4);
 
-}
-
-.shadow {
-  -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.5);
-  box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.5);
 }
 
 .painting, .content{
@@ -92,13 +86,16 @@ img {
   padding: 25px;
 
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 30px;
+  left: 30px;
 
   background: url(../img/homeIcon.png) no-repeat center;
-  background-color: rgba(20,20,20,0.5);
+  background-color: rgba(0,0,0,0.75);
 }
 .home-btn:active{
+
+  margin-bottom: -1px;
+
   background: url(../img/homeIconActive.png) no-repeat center;
-  background-color: rgba(20,20,20,0.5);
+  background-color: rgba(0,0,0,0.75);
 }

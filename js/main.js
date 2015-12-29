@@ -50,8 +50,8 @@ $(document).ready(function() {
     });
 
     // Create hit regions by building Vernoi diagram
-    console.log(appWidth,appHeight);
-    var svgElement = '<svg id="veronoi_ui" width="'+appWidth+'" height="'+appHeight+'"></svg>';
+    console.log(appWidth, appHeight);
+    var svgElement = '<svg id="veronoi_ui" width="' + appWidth + '" height="' + appHeight + '"></svg>';
     $('.annotations').prepend(svgElement);
 
     // Allow time for size recalc...
@@ -95,40 +95,42 @@ $(document).ready(function() {
         $(a.btn).removeClass('active');
 
         // Transition
-
-        TweenMax.to($(a.btn), 0.15, {
+        TweenMax.set($(a.btn), {
+          zIndex:2,
+        });
+        TweenMax.to($(a.btn), 0.2, {
           opacity:0,
+          onComplete:function() {
+            TweenMax.set($(a.btn), {
+              zIndex:0,
+            });
+          },
         });
 
-        setTimeout(function() {
+        TweenMax.to($('.overlay'), 0.6, {
+          opacity:1,
+          ease:Power2.easeOut,
+        });
 
-          TweenMax.to($('.overlay'), 1, {
-              opacity:1,
-              ease:Power2.easeOut,
-            });
+        $(a.cutout).show();
+        TweenMax.set($(a.cutout), {
+          boxShadow:'0px 0px 8px 2px rgba(0, 0, 0, 0)',
+          zIndex:1,
+          backgroundColor:'rgba(0,0,0,0.0)',
+          padding:0,
+        });
 
-          $(a.cutout).show();
-
-          TweenMax.set($(a.cutout), {
-            boxShadow:'0px 0px 8px 2px rgba(0, 0, 0, 0)',
-            zIndex:1,
-            backgroundColor:'rgba(0,0,0,0.0)',
-            padding:0,
-          });
-
-          TweenMax.to($(a.cutout), 1.5, {
-            delay: 0.5,
-            left:20,
-            top:20,
-            padding:10,
-            backgroundColor:'rgba(0,0,0,0.75)',
-            boxShadow:'0px 3px 8px 2px rgba(0, 0, 0, 0.3)',
-            ease:Power2.easeInOut,
-            onComplete:showAnnotationContent,
-            onCompleteParams:[a],
-          });
-
-        }, 150);
+        TweenMax.to($(a.cutout), 1.5, {
+          delay: 0,
+          left:30,
+          top:30,
+          padding:15,
+          backgroundColor:'rgba(0,0,0,0.75)',
+          boxShadow:'0px 1px 6px 2px rgba(0, 0, 0, 0.35)',
+          ease:Power2.easeInOut,
+          onComplete:showAnnotationContent,
+          onCompleteParams:[a],
+        });
 
         break;
 
@@ -227,18 +229,22 @@ $(document).ready(function() {
     $('.content').fadeOut('fast', function() {
       videoPlayer.get(0).pause();
       $('.content').hide();
-
-      cutoutsGoHome();
-
     });
+
+    cutoutsGoHome();
 
   }
 
   function cutoutsGoHome() {
+
+    TweenMax.to($('.overlay'), 0.8, {
+      opacity:0,
+      delay:0.7,
+    });
+
     for (var i = 0; i < annotations.length; i++) {
 
       TweenMax.to($(annotations[i].cutout), 1.5, {
-        delay: 0.0,
         left:annotations[i].x + annotations[i].cutRect.x,
         top:annotations[i].y + annotations[i].cutRect.y,
         backgroundColor:'rgba(0,0,0,0.0)',
@@ -262,10 +268,7 @@ $(document).ready(function() {
 
     };
 
-    TweenMax.to($('.overlay'), 0.75, {
-      opacity:0,
-      delay:0.25,
-    });
+
 
   }
 
