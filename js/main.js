@@ -209,10 +209,10 @@ $(document).ready(function() {
 
       trackKeenEvent('video_closed', {
         didFinish:true,
-        src: videoPlayer.currentSrc,
-        timePlayed:videoPlayer.currentTime,
-        duration:videoPlayer.duration,
-        progress:videoPlayer.duration / videoPlayer.currentTime,
+        src: videoPlayer.get(0).currentSrc,
+        timePlayed:videoPlayer.get(0).currentTime,
+        duration:videoPlayer.get(0).duration,
+        progress:videoPlayer.get(0).duration / videoPlayer.get(0).currentTime,
       });
 
       hideFullscreenVideo();
@@ -224,10 +224,10 @@ $(document).ready(function() {
 
       trackKeenEvent('video_closed', {
         didFinish:false,
-        src: videoPlayer.currentSrc,
-        timePlayed:videoPlayer.currentTime,
-        duration:videoPlayer.duration,
-        progress:videoPlayer.duration / videoPlayer.currentTime,
+        src: videoPlayer.get(0).currentSrc,
+        timePlayed:videoPlayer.get(0).currentTime,
+        duration:videoPlayer.get(0).duration,
+        progress:videoPlayer.get(0).duration / videoPlayer.get(0).currentTime,
       });
 
       hideFullscreenVideo();
