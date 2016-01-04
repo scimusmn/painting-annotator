@@ -149,6 +149,9 @@ $(document).ready(function() {
         console.log('Annotation type:', ann.type, ' has not been built yet.');
         break;
     }
+
+    trackKeenEvent('annotation_selection', { annotation: ann.id, mediaType:ann.type });
+
   }
 
   function getCutoutFromImage(id, imgElement, x, y, w, h) {
@@ -204,12 +207,28 @@ $(document).ready(function() {
 
       console.log('Video has ended!');
 
+      trackKeenEvent('video_closed', {
+        didFinish:true,
+        src: videoPlayer.currentSrc,
+        timePlayed:videoPlayer.currentTime,
+        duration:videoPlayer.duration,
+        progress:videoPlayer.duration / videoPlayer.currentTime,
+      });
+
       hideFullscreenVideo();
 
     });
 
     // Home button
     $('.home-btn').on('click', function() {
+
+      trackKeenEvent('video_closed', {
+        didFinish:false,
+        src: videoPlayer.currentSrc,
+        timePlayed:videoPlayer.currentTime,
+        duration:videoPlayer.duration,
+        progress:videoPlayer.duration / videoPlayer.currentTime,
+      });
 
       hideFullscreenVideo();
 
@@ -221,6 +240,8 @@ $(document).ready(function() {
 
     videoPlayer.attr('src', vidSrc);
     videoPlayer.load();
+
+    trackKeenEvent('play_video', { video: vidSrc });
 
   }
 
@@ -268,8 +289,6 @@ $(document).ready(function() {
 
     };
 
-
-
   }
 
   function setupScreenSaver() {
@@ -277,6 +296,7 @@ $(document).ready(function() {
     var screensaver = new Screensaver(5 * 60, 'videos/ss.mp4', function() {
 
       console.log('onSleepCallback');
+      trackKeenEvent('screensaver_shown', { });
 
     });
 
@@ -298,11 +318,34 @@ $(document).ready(function() {
     }
 
     return type;
+
   }
 
   function getProperJSON(improperJSON) {
     var properJSON = improperJSON.replace(/([a-z][^:]*)(?=\s*:)/g, '"$1"');
     return JSON.parse(properJSON);
+  }
+
+  function trackKeenEvent(collectionId, trackingEvent) {
+
+    if (keenClient) {
+
+      // Add timestamp
+      trackingEvent.keen = { timestamp: new Date().toISOString() };
+
+      // Send it to the <collectionId> collection
+      keenClient.addEvent(collectionId, trackingEvent, function(err, res) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res);
+        }
+      });
+
+    } else {
+      console.log('Keen not initialized. Copy and modify js/keen.template.js -> js/keen.js')
+    }
+
   }
 
   // TEMP - Tool for logging annotation points
