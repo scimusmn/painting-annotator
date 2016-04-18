@@ -90,10 +90,10 @@ img {
   left: 30px;
 
   background: url(../img/homeIcon.png) no-repeat center;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0,0,0,0);
 }
 .home-btn:active{
 
   background: url(../img/homeIconActive.png) no-repeat center;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0,0,0,0);
 }
