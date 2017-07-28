@@ -63,10 +63,10 @@ img {
 
 .brand-wrapper h1 {
   position: absolute;
-  top: 139px;
+  top: 150px;
   width: 100%;
   text-align: left;
-  color: #e8d8d6;
+  color: #d7c6c4;
   font-family: 'museo700', sans-serif;
   line-height: 0px;
   font-size: 32px;
@@ -94,7 +94,7 @@ img {
 
   /*transform: scale(0.75, 0.75);*/
   position: absolute;
-  top: 207px;
+  top: 227px;
   left: 228px;
 
 }
@@ -105,10 +105,10 @@ img {
   padding: 0px 7.5px;
   font-size: 15px;
   line-height: 1.33;
-  /*border-radius: 15px;*/
+  border-radius: 15px;
 
-  /*background-color: rgba(0,0,0,0.8);*/
-  background-color: #9f584e;
+  background-color: rgba(22,22,22,0.85);
+  /*background-color: #9f584e;*/
   color: white;
 
 /*  -webkit-box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.3);
@@ -165,7 +165,7 @@ img {
 }
 
 .horizontal-break {
-  margin-top: 34px;
+  margin-top: 39px;
   margin-left: -5px;
   position: absolute;
   z-index: -1;

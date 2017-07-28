@@ -122,10 +122,10 @@ $(document).ready(function() {
 
         TweenMax.to($(a.cutout), 1.2, {
           delay: 0,
-          left:-155,
+          left:-180,
           top:-161,
-          padding:6,
-          backgroundColor:'rgba(0,0,0,0.9)',
+          padding:8,
+          backgroundColor:'rgba(0,0,0,0.8)',
           boxShadow:'0px 1px 6px 2px rgba(0, 0, 0, 0.35)',
           ease:Power2.easeInOut,
           onComplete:showAnnotationContent,
