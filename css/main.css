@@ -95,6 +95,27 @@ img {
 
 }
 
+.brand-wrapper button {
+  width: 40px;
+  height: 40px;
+  padding: 7px 10px;
+  font-size: 20px;
+  line-height: 1.33;
+  border-radius: 20px;
+
+  margin: -22px 1px;
+
+
+  background-color: rgba(0,0,0,1.0);
+  /*background-color: #9f584e;*/
+  color: white;
+
+  /*box-shadow: 0px 0px 20px 1px rgba(0,0,0,0.35);*/
+
+  pointer-events:none;
+
+}
+
 .annotations button {
   width: 30px;
   height: 30px;
