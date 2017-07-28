@@ -63,10 +63,10 @@ img {
 
 .brand-wrapper h1 {
   position: absolute;
-  top: 149px;
+  top: 139px;
   width: 100%;
   text-align: left;
-  color: #dacccb;
+  color: #e8d8d6;
   font-family: 'museo700', sans-serif;
   line-height: 0px;
   font-size: 32px;
@@ -105,9 +105,9 @@ img {
   padding: 0px 7.5px;
   font-size: 15px;
   line-height: 1.33;
-  border-radius: 15px;
+  /*border-radius: 15px;*/
 
-  background-color: rgba(0,0,0,0.85);
+  /*background-color: rgba(0,0,0,0.8);*/
   background-color: #9f584e;
   color: white;
 
