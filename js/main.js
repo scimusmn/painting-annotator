@@ -120,10 +120,10 @@ $(document).ready(function() {
           padding:0,
         });
 
-        TweenMax.to($(a.cutout), 1.5, {
+        TweenMax.to($(a.cutout), 1.2, {
           delay: 0,
-          left:30,
-          top:30,
+          left:-230,
+          top:-220,
           padding:15,
           backgroundColor:'rgba(0,0,0,0.75)',
           boxShadow:'0px 1px 6px 2px rgba(0, 0, 0, 0.35)',
@@ -328,7 +328,7 @@ $(document).ready(function() {
 
   function trackKeenEvent(collectionId, trackingEvent) {
 
-    if (keenClient) {
+    if (typeof keenClient !== 'undefined') {
 
       // Add timestamp
       trackingEvent.keen = { timestamp: new Date().toISOString() };
