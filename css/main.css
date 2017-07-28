@@ -67,7 +67,7 @@ img {
 
 .brand-wrapper h1 {
   position: absolute;
-  top: 130px;
+  top: 128px;
   width: 100%;
   text-align: left;
   color: #d7c6c4;
@@ -86,20 +86,11 @@ img {
   background-position: center bottom;
   background-color: rgba(5,5,5,0.0);
 }
-
-.painting,
-.annotations{
-
-  /*transform: scale(0.75, 0.75);*/
-  position: absolute;
-
-}
-
 .painting, .annotations{
 
   /*transform: scale(0.75, 0.75);*/
   position: absolute;
-  top: 191px;
+  top: 180px;
   left: 231px;
 
 }
