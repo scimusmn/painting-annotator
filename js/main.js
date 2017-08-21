@@ -23,8 +23,8 @@ $(document).ready(function() {
       var mediaPath = $(this).attr('media-path');
       var a = { id: $(this).attr('id'),
                 btn: this,
-                x: parseInt($(this).attr('annotation-x'), 10),
-                y: parseInt($(this).attr('annotation-y'), 10),
+                x: parseInt($(this).attr('annotation-x')*0.75, 10),
+                y: parseInt($(this).attr('annotation-y')*0.75, 10),
                 type: getMediaType(mediaPath),
                 path: mediaPath,
       };
@@ -120,12 +120,12 @@ $(document).ready(function() {
           padding:0,
         });
 
-        TweenMax.to($(a.cutout), 1.5, {
+        TweenMax.to($(a.cutout), 1.2, {
           delay: 0,
-          left:30,
-          top:30,
-          padding:15,
-          backgroundColor:'rgba(0,0,0,0.75)',
+          left:-180,
+          top:-161,
+          padding:8,
+          backgroundColor:'rgba(0,0,0,0.8)',
           boxShadow:'0px 1px 6px 2px rgba(0, 0, 0, 0.35)',
           ease:Power2.easeInOut,
           onComplete:showAnnotationContent,
@@ -328,7 +328,7 @@ $(document).ready(function() {
 
   function trackKeenEvent(collectionId, trackingEvent) {
 
-    if (keenClient) {
+    if (typeof keenClient !== 'undefined') {
 
       // Add timestamp
       trackingEvent.keen = { timestamp: new Date().toISOString() };
@@ -343,7 +343,7 @@ $(document).ready(function() {
       });
 
     } else {
-      console.log('Keen not initialized. Copy and modify js/keen.template.js -> js/keen.js')
+      console.log('Keen not initialized. Copy and modify js/keen.template.js -> js/keen.js');
     }
 
   }
